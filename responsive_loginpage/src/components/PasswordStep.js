@@ -11,6 +11,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
 
 function PasswordStep() {
   const [password, setPassword] = useState("");
@@ -30,55 +32,83 @@ function PasswordStep() {
     alert("Login Successful!");
     navigate("/dashboard");
   };
+  const handleBack=()=>{
+    navigate("/");
+  };
 
   return (
-    <Box
-      sx={{
-        height: "100vh",
-        display: "flex",
+    <Box sx={{
+        height:"100vh",
+       display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(to right, #ffecd2, #fcb69f, #a1c4fd, #c2e9fb)",
+        backgroundImage : `url("/bgimg.jpg")`,
+        backgroundSize:"cover",
       }}
     >
-      
-      <Typography variant="h5" sx={{ mt: 2 }}>Cloud System</Typography>
-      <Typography variant="body2" sx={{ mb: 2 }}>Please enter your password</Typography>
+  <Box
+          component="img"
+          src="/logo.png"
+          alt="Logo"
+          sx={{
+            width:40,
+            height:40,
+            borderRadius: "50%",
+            objectFit: "cover",
+            position: "absolute",
+            top: 80,   
+            left: "50%", 
+            transform: "translateX(-50%)",
+          }}
+        />
 
-      <TextField
-        label="Password"
-        type={show ? "text" : "password"}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        InputProps={{
-          endAdornment: (
-            <IconButton onClick={() => setShow(!show)}>
-              {show ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          ),
-        }}
-        sx={{ width: "300px", mb: 2 }}
-      />
-
-      <Typography variant="body2" color="primary" sx={{ mb: 1, cursor: "pointer" }}>
+      <Typography variant="h5" sx={{ mt: 2 , height: 70 }}>Cloud System</Typography>
+      <Typography variant="body2" sx={{ mb: 2,}}>Please enter your password</Typography>
+      <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+        <IconButton
+            onClick={handleBack}
+            sx={{mb: 2,bgcolor: "white",border: "1px solid #ccc","&:hover": { bgcolor: "#f0f0f0" },}}>
+  <ArrowBackIcon />
+</IconButton>
+<TextField
+  placeholder="Password"
+  type={show ? "text" : "password"}
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  InputProps={{
+    endAdornment: (
+      <IconButton onClick={() => setShow(!show)}>
+        {show ? <VisibilityOff /> : <Visibility />}
+      </IconButton>
+    ),
+  }}
+  sx={{
+    width: "400px",
+    mb: 1,
+    bgcolor: "white",
+    borderRadius: "5px",
+  }}
+/>
+</Box>
+      <Typography variant="body2" color="black" sx={{ mb:1, height:10, cursor: "pointer" }}>
         Forgot Password?
       </Typography>
 
       <FormControlLabel
-        control={<Checkbox checked={agree} onChange={(e) => setAgree(e.target.checked)} />}
+        control={<Checkbox checked={agree} onChange={(e) => setAgree(e.target.checked)} sx={{ color:"white" , "&.Mui-checked" :{ color:"white",},}} />}
         label={<Typography variant="body2">I agree to <a href="#">Terms and Conditions</a></Typography>}
       />
 
       <Button
         variant="contained"
-        sx={{ width: "300px", borderRadius: "20px", mt: 2 }}
+        sx={{ width: "80px", margin:1 ,height:"30px", borderRadius: "20px", textTransform:"none", backgroundColor:"#664ad6ff", }}
         onClick={handleLogin}
+      
       >
-        Log in
+        Login
       </Button>
     </Box>
   );
 }
-
 export default PasswordStep;
